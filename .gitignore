@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment folders
+env/
+venv/
+ENV/
+env.bak/
+
+# SQLite database (optional)
+*.db
+*.sqlite3
+
+# Flask secret keys or environment files
+*.env
+.env
+
+# VS Code settings
+.vscode/
+
+# Byte-compiled / cache
+*.pytest_cache/
+
+# Mac and Windows system files
+.DS_Store
+Thumbs.db
