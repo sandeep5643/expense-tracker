@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>Statistics</h3>
+
+  <h5>Category-wise</h5>
+  <table class="table table-sm">
+    <thead><tr><th>Category</th><th>Total (₹)</th></tr></thead>
+    <tbody>
+      {% for cat, tot in category_data %}
+        <tr><td>{{ cat }}</td><td>₹{{ '%.2f'|format(tot) }}</td></tr>
+      {% else %}
+        <tr><td colspan="2">No data</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h5 class="mt-4">Monthly Totals</h5>
+  <table class="table table-sm">
+    <thead><tr><th>Month</th><th>Total (₹)</th></tr></thead>
+    <tbody>
+      {% for m, tot in monthly_data %}
+        <tr><td>{{ m }}</td><td>₹{{ '%.2f'|format(tot) }}</td></tr>
+      {% else %}
+        <tr><td colspan="2">No data</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

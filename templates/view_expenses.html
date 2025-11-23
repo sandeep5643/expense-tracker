@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>All Expenses</h3>
+  <p>Total spent: <strong>₹{{ '%.2f'|format(total) }}</strong></p>
+  <table class="table table-hover">
+    <thead><tr><th>#</th><th>Date</th><th>Category</th><th>Amount</th><th>Note</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for e in expenses %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ e.date.strftime('%Y-%m-%d') }}</td>
+          <td>{{ e.category }}</td>
+          <td>₹{{ '%.2f'|format(e.amount) }}</td>
+          <td>{{ e.note }}</td>
+          <td>
+            <form method="post" action="{{ url_for('delete_expense', expense_id=e.id) }}" style="display:inline;">
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this expense?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6">No expenses found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
