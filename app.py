@@ -11,6 +11,9 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
 @app.route("/")
 def home():
     # show recent 5 expenses on home
