@@ -4,9 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Expense Tracker</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
@@ -18,108 +21,46 @@
     </div>
   </div>
 </nav>
-
-<div class="container mt-4">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for cat, msg in messages %}
-        <div class="alert alert-{{cat}} alert-dismissible fade show" role="alert">
-          {{ msg }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
-  {% block content %}{% endblock %}
-</div>
 
 <!-- Toast Container -->
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <div class="toast align-items-center text-white bg-success border-0 show" role="alert">
-          <div class="d-flex">
-            <div class="toast-body">
-              {{ message }}
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-          </div>
-        </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-<!-- <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Expense Tracker</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="{{ url_for('home') }}">ExpenseTracker</a>
-    <div>
-      <a class="btn btn-sm btn-light me-2" href="{{ url_for('add_expense') }}">Add Expense</a>
-      <a class="btn btn-sm btn-light me-2" href="{{ url_for('view_expenses') }}">View</a>
-      <a class="btn btn-sm btn-light" href="{{ url_for('stats') }}">Stats</a>
-    </div>
-  </div>
-</nav>
-
-
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
-
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999;">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for cat, msg in messages %}
-        <div class="toast align-items-center text-white bg-{{ 'success' if cat=='success' else 'danger' }} border-0 show"
-             role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+        {% set bs = {'success':'success','danger':'danger','warning':'warning','info':'info'} %}
+
+        <div class="toast align-items-center text-bg-{{ bs.get(cat, 'primary') }} border-0 show"
+             role="alert" aria-live="assertive" aria-atomic="true">
           <div class="d-flex">
-            <div class="toast-body">
-              {{ msg }}
-            </div>
+            <div class="toast-body">{{ msg }}</div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto"
                     data-bs-dismiss="toast"></button>
           </div>
         </div>
+
       {% endfor %}
     {% endif %}
   {% endwith %}
-
-</div> -->
-<!-- ========== END TOAST CONTAINER ========== -->
+</div>
 
 
-<!-- <div class="container mt-4">
+<div class="container mt-4">
   {% block content %}{% endblock %}
 </div>
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- Auto-show Toast Script -->
 <script>
-  // Auto initialize all toasts
-  document.addEventListener("DOMContentLoaded", function () {
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  document.addEventListener("DOMContentLoaded", () => {
+    const toastElList = [].slice.call(document.querySelectorAll('.toast'))
     toastElList.map(function (toastEl) {
-      var t = new bootstrap.Toast(toastEl)
-      t.show()
+      const toast = new bootstrap.Toast(toastEl)
+      toast.show()
     })
   })
 </script>
 
 </body>
-</html> -->
+</html>
